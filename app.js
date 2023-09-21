@@ -9,7 +9,7 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const findOrCreate = require("mongoose-findorcreate");
 
 const app = express();
-const url = "mongodb://127.0.0.1:27017/todoDb";
+const url = "mongodb+srv://admin-ashish:123_Test@cluster0.nyms3nr.mongodb.net/todoDb";
 
 
 app.use(bodyparser.urlencoded({ extended: true }));
