@@ -1,0 +1,64 @@
+<%- include("./partials/header.ejs") %>
+    <div class="main">
+        <div class="mainleft">
+            <% if(locals.date&&locals.day){ %>
+                <h2>
+                    <%= date %>
+                </h2>
+                <h2>
+                    <%= day %>
+                </h2>
+                <%}else{ %>
+                    <h2>date</h2>
+                    <h2>day</h2>
+                    <% } %>
+
+        </div>
+        <div class="middle">
+            <h1>List Name</h1>
+            <div class="list">
+
+                <form action="/delete" method="post">
+
+                    <ul>
+                        <% if(locals.arr){%>
+                            <% arr.forEach(element=>{ %>
+                                <div class="render">
+                                    <input type="checkbox" name="deleteItem" value="<%= element._id %>" onChange="this.form.submit()"  >
+                                    <li>
+                                        <%= element.name %>
+                                    </li>
+                                </div>
+
+                                <% }); %>
+                                    <% }else{ %>
+                                        <input type="checkbox">
+                                        <li>No item</li>
+                                        <% } %>
+
+                    </ul>
+                    <!-- <input type="text" name="listText">
+                    <button type="submit">+</button> -->
+                </form>
+
+                <form action="/addNew" method="post">
+                    <div class="addButton" >
+                        <input type="text" name="newItem" autocomplete="off" >
+                        <button type="submit">+</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+        <div class="mainright">
+            <% if(locals.username){ %>
+                <h1>
+                    <%=username%>
+                </h1>
+                <% }else{ %>
+                    <h1>Username</h1>
+                    <% } %>
+
+        </div>
+    </div>
+    <%- include("./partials/footer.ejs") %>

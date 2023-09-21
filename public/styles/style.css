@@ -1,0 +1,149 @@
+*{
+    margin: 0px;
+    padding: 0px;
+
+}
+/* header */
+.navBar{
+    background-color: red;
+    display: flex;
+    justify-content: space-between;
+}
+.right {
+    display: flex;
+    flex: wrap;
+
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 70px;
+}
+.right ul{
+    display: flex;
+    flex: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.right ul li{
+    display: flex;
+    margin: 0px 10px 0px 10px;
+}
+
+/* undernav bar css */
+.main{
+    display: flex;
+    margin: 10px;
+    justify-content: space-between;
+    margin-top: 1rem ;
+}
+.mainleft{
+    
+
+}
+.mainright{
+    /* background-color: green; */
+}
+.middle {
+
+    text-align: center;
+}
+.list form{
+    /* background-color: rgb(218, 78, 227); */
+    border-radius: 20px;
+    
+}
+.list form ul{
+    list-style: none;
+    display: flex;
+    padding: 10px;
+    width: 350px;
+    flex-direction: column;
+    /* background-color: green; */
+    border: 2px solid black;
+    border-radius: 5px;
+}
+ul li a{
+    text-decoration: none;
+    font-weight: bold;
+    color: white;
+
+}
+.render{
+    display: flex;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+
+}
+.list form ul input{
+    margin-left: 5px;
+    margin-right: 10px;
+    
+    
+
+}
+.list form ul li{
+    /* color: white; */
+    font-weight: bold;
+    font-size: large;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+.list form ul input:checked+li{
+    text-decoration: line-through;
+}
+.list form input{
+    outline: none;
+    border:none;
+    border-bottom: 2px solid black;
+    margin: 20px;
+}
+.addButton{
+    width: 100%;
+    margin-bottom: 200px;
+    /* background-color: yellow; */
+}
+.addButton input{
+    width: 70%;
+    height: 30px;
+}
+.addButton button{
+    width: 50px;
+    height: 50px;
+    color: white;
+    background-color: brown;
+    border-radius: 50%;
+    border: none;
+    font-weight: bold;
+    font-size: 30px;
+}
+.footer{
+    position: fixed;
+    bottom: 0;
+    background-color: rgb(193, 172, 172);
+    width: 100%;
+    color: white;
+    font-weight: bold;
+    height: 2rem;
+    font-size: larger;
+    text-align: center;   
+    margin-top: 200px;
+}
+@media(max-width:777px){
+    .mainleft{
+    display: none;
+
+    }
+    .mainright{
+        /* background-color: green; */
+        display: none;
+    }
+    .middle{
+        width: 100%;
+    }
+    ul{
+        width: 95%;
+        margin: auto;
+
+    }
+}

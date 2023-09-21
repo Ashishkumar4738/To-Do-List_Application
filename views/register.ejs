@@ -1,0 +1,29 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <link rel="stylesheet" href="/styles/loginStyle.css">
+</head>
+<body>
+    
+    <div class="log">
+        <h1>Register</h1>
+        <form action="/register" method="post">
+            <h4>Username</h4>
+            <input type="text" name="username" placeholder="Enter your username">
+            <h4>password</h4>
+            <input type="password" name="password" placeholder="Enter your password">
+            <a href="#"><h6>Forget password</h6></a>
+            <button type="submit">Submit</button>
+            <div class="oauth">
+                <!-- Google -->
+                <h5>or Signup using </h5>
+                <a href="/auth/google"><img src="../images/google.png" alt="Google Icon"></a> 
+                <a href="#"><img src="../images/facebook.png" alt="Facebook Icon"></a>
+
+            </div>
+        </form>
+    </div>
+</body>
+</html>

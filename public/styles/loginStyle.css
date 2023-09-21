@@ -1,0 +1,84 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    /* background-color: red; */
+}
+body{
+    /* background-color: green; */
+    display: flex;
+    /* background-color: red; */
+    background-image: url("../images/LoginBackground.jpg");
+}
+.log{
+    background-color: rgba(134, 129, 129, 0.166);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 10px;
+    height: 60vh;
+    width: 25%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content:start;
+    align-items: center;
+}
+form{
+    /* background-color: purple; */
+    width: 90%;
+    display: flex;
+    flex-direction: column ;
+    
+}
+form h4{
+    margin: 10px;
+}
+form input{
+    margin: auto;
+    outline: none;
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    background-color:rgba(255, 0, 0, 0);
+    border-bottom: 2px solid rgb(87, 92, 92);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+form a{
+    align-self: flex-end;
+}
+
+form button{
+    border-radius: 20px;
+    background-color: rgb(139, 238, 229);
+    font-size: larger;
+    border: none;
+    font-weight: bold;
+    color: white;
+    
+    padding: 8px;
+}
+form button:hover{
+
+    background-color: rgb(109, 238, 228);
+} 
+h6{
+    margin: 10px 3px;
+}
+h5{
+    margin: 8px;
+}
+.oauth{
+    /* background-color: red; */
+
+    justify-content: center;
+    width: 50%;
+    margin: auto;
+    text-align: center;
+
+}
+.oauth img{
+    
+    margin-top:10px ;
+    width: 50px;
+    margin: 0px 5px;
+    height: 50px;
+
+}
