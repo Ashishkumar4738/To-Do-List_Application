@@ -82,3 +82,18 @@ h5{
     height: 50px;
 
 }
+@media(min-width:300px) and (max-width:500px){
+    .log{
+        
+        width: 95%;
+       
+    }
+}
+@media(min-width:500px) and (max-width:1000px)  {
+    .log{
+       
+        width: 70%;
+        height: 50%;
+    }
+        
+}
