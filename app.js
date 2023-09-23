@@ -134,7 +134,7 @@ async function main() {
             const data = await Login.findOne({ username: req.user.username });
             //console.log(data.title[0].titname);
             const list = data.title.filter(element => element.titname===renderListName);
-            console.log(list[0].list);
+            //console.log(list[0].list);
             if (data.title.length === 0) {
                 await Login.findOneAndUpdate({ username: req.user.username }, { title: [item]});
                 res.redirect("/home");
