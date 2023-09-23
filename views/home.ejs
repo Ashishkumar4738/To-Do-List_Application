@@ -15,7 +15,14 @@
 
         </div>
         <div class="middle">
-            <h1>List Name</h1>
+            <% if(locals.title){ %>
+
+                <h1>
+                    <%= title %>
+                </h1>
+                <% }else{ %>
+                    <h1>List Name</h1>
+                    <% }%>
             <div class="list">
 
                 <form action="/delete" method="post">

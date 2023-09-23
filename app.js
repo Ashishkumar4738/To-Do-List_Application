@@ -226,11 +226,12 @@ async function main() {
 
     app.post("/addNew", async (req, res) => {
         const data = await Login.findOne({ username: req.user.username });
-        //console.log(req.body.newItem);
+        console.log(data.title);
+         const findlistArr = data.title.filter(element=>(element.titname===renderListName))
         const item = new Item({
             name: req.body.newItem
         })
-        await findlistArr[0].list.push(item);
+         await findlistArr[0].list.push(item);
          await data.save();
         res.redirect("/home");
     });
