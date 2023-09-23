@@ -137,7 +137,7 @@ async function main() {
             //console.log(list[0].list);
             if (data.title.length === 0) {
                 await Login.findOneAndUpdate({ username: req.user.username }, { title: [item]});
-                res.redirect("/home");
+                res.redirect("/");
             }
             //console.log(list)
                 res.render("home.ejs", {
