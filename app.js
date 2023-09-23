@@ -131,14 +131,16 @@ async function main() {
     app.get("/home", async (req, res) => {
 
         if (req.isAuthenticated()) {
-            const data = await Login.findOne({ username: req.user.username });
+            let data = await Login.findOne({ username: req.user.username });
             //console.log(data.title[0].titname);
-            const list = data.title.filter(element => element.titname===renderListName);
+            let list = data.title.filter(element => element.titname===renderListName);
             //console.log(list[0].list);
             if (data.title.length === 0) {
                 await Login.findOneAndUpdate({ username: req.user.username }, { title: [item]});
                 res.redirect("/");
             }
+             data = await Login.findOne({ username: req.user.username });
+            list = data.title.filter(element => element.titname===renderListName);
             //console.log(list)
                 res.render("home.ejs", {
                 listname:data.title,
