@@ -14,6 +14,13 @@
         </div>
         <div class="right">
             <ul>
+                <% if(locals.listname){ %>
+                    <% listname.forEach(element=>{ %>
+                        <li><a href="/renderlist:<%=element.titname%>" name="renderlist" value="<%=element.titname%>">
+                                <%=element.titname%>
+                            </a> </li>
+                        <% }) %>
+                            <% } %>
                 <li><a href="/logout">Logout</a> </li>
                 <!-- <li><a href="#">about</a></li>
                 <li><a href="#">work</a></li> -->

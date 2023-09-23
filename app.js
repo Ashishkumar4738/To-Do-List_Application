@@ -11,6 +11,7 @@ const findOrCreate = require("mongoose-findorcreate");
 const app = express();
 const url = "mongodb+srv://admin-ashish:123_Test@cluster0.nyms3nr.mongodb.net/todoDb";
 
+var renderListName = "Home";
 
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -40,15 +41,23 @@ async function main() {
     const listSchema = new mongoose.Schema({
         name: String
     });
-
     //model for listSchema
     const Item = new mongoose.model("List", listSchema);
     //loginSchema
+    const difList = new mongoose.Schema({	
+        titname:String,	
+        list:[listSchema]	
+    });	
+    //difList model	
+    const DifList = new mongoose.model("DifList",difList);
+
+
+
     const loginSchema = new mongoose.Schema({
         username: String,
         password: String,
         googleId: String,
-        title: [listSchema]
+        title: [difList]
     });
 
     loginSchema.plugin(passportLocalMongoose);
@@ -63,6 +72,11 @@ async function main() {
     });
     const item3 = new Item({
         name: "<-- Hit this delete an item"
+    });
+
+    const item = new DifList({
+        titname:"Home",
+        list:[item1,item2,item3]
     });
 
     passport.use(Login.createStrategy());
@@ -104,24 +118,10 @@ async function main() {
     app.get("/", async (req, res) => {
 
         if (req.isAuthenticated()) {
-            const data = await Login.findOne({ username: req.user.username });
-            // data.title.forEach(element => {
-            //     console.log(element.name);
-            // });
-            if(data.title.length!==0){
-                 res.render("home.ejs", {
-                username: data.username,
-                date: date,
-                day: day,
-                arr: data.title
-            });
+            res.redirect("/home");
             }else{
                 res.render("login.ejs");
             }
-           
-        } else {
-            res.render("login.ejs");
-        }
     });
 
     app.get("/register", (req, res) => {
@@ -132,24 +132,33 @@ async function main() {
 
         if (req.isAuthenticated()) {
             const data = await Login.findOne({ username: req.user.username });
+            //console.log(data.title[0].titname);
+            const list = data.title.filter(element => element.titname===renderListName);
+            console.log(list[0].list);
             if (data.title.length === 0) {
-                await Login.findOneAndUpdate({ username: req.user.username }, { title: [item1, item2, item3] });
+                await Login.findOneAndUpdate({ username: req.user.username }, { title: [item]});
                 res.redirect("/home");
             }
-            // data.title.forEach(element => {
-            //     console.log(element.name);
-            // });
-
-            res.render("home.ejs", {
+            //console.log(list)
+                res.render("home.ejs", {
+                listname:data.title,
+                title:list[0].titname,
                 username: data.username,
                 date: date,
                 day: day,
-                arr: data.title
+                arr: list[0].list
             });
         } else {
             res.redirect("/");
         }
     });
+
+    app.get("/renderlist:listName",(req,res)=>{
+        renderListName = req.params.listName.substring(1) ;
+        // console.log(value);
+        // console.log(req.body.renderlist);
+        res.redirect("/home");
+    })
 
     app.get("/logout",(req,res)=>{
         req.logout(function(err) {
@@ -196,7 +205,7 @@ async function main() {
                     //console.log(user);
                     const data = await Login.findOne({ username: username });
                     if (data.title.length === 0) {
-                        await Login.updateOne({ username: username }, { title: [item1, item2, item3] });
+                        await Login.updateOne({ username: username }, { title: [item] });
                         await data.save();
                     }
                     const data2 = await Login.findOne({ username: username });
@@ -210,8 +219,8 @@ async function main() {
 
     app.post("/delete", async (req, res) => {
         const id = req.body.deleteItem;
-        //console.log(req.body.deleteItem);
-        await Login.findOneAndUpdate({ username: req.user.username }, { $pull: { title: { _id: id } } })
+        console.log(req.body.deleteItem);
+        await Login.findOneAndUpdate({ username: req.user.username,"title.list._id":id },{$pull:{"title.$.list":{_id:id}}});  
         res.redirect("/home");
     });
 
@@ -221,7 +230,21 @@ async function main() {
         const item = new Item({
             name: req.body.newItem
         })
-        await data.title.push(item);
+        await findlistArr[0].list.push(item);
+         await data.save();
+        res.redirect("/home");
+    });
+        
+    app.post("/create_new_List", async(req,res)=>{
+        const listName = req.body.newListName;
+        const newList = new DifList({
+            titname:listName,
+            list:[item1,item2,item3]
+        });
+        const user = req.user._id;
+        const data = await Login.findById({_id:user}).exec();
+        //console.log(data);
+        data.title.push(newList);
         await data.save();
         res.redirect("/home");
     })
