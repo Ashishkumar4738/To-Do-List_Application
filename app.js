@@ -9,7 +9,7 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const findOrCreate = require("mongoose-findorcreate");
 
 const app = express();
-const url = "mongodb+srv://admin-ashish:"+`process.env.PASS`+"@cluster0.nyms3nr.mongodb.net/todoDb";
+const url = "mongodb+srv://admin-ashish:"+`${process.env.PASS}`+"@cluster0.nyms3nr.mongodb.net/todoDb";
 
 var renderListName = "Home";
 
