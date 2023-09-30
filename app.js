@@ -94,7 +94,7 @@ async function main() {
     passport.use(new FacebookStrategy({
         clientID: process.env.FACEBOOK_APP_ID,
         clientSecret: process.env.FACEBOOK_APP_SECRET,
-        callbackURL: "https://fantastic-jade-buffalo.cyclic.cloud/auth/facebook/home"
+        callbackURL: "http://localhost:3000/auth/facebook/home"
       },
       function(accessToken, refreshToken, profile, cb) {
         console.log(profile);
@@ -158,9 +158,9 @@ async function main() {
             let data = await Login.findOne({ username: req.user.username });
             //console.log(data.title[0].titname);
             let list = data.title.filter(element => element.titname===renderListName);
-            //console.log(list[0].list);
-            if (data.title.length === 0) {
-                await Login.findOneAndUpdate({ username: req.user.username }, { title: [item]});
+            console.log(list);
+            if (list[0].list.length === 0) {
+                await Login.findOneAndUpdate({ username: req.user.username,"title.titname":renderListName}, { "title.$.list": [item1,item2,item3]});
                 res.redirect("/");
             }
              data = await Login.findOne({ username: req.user.username });
