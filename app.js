@@ -6,6 +6,7 @@ const session = require("express-session");
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const FacebookStrategy = require("passport-facebook").Strategy;
 const findOrCreate = require("mongoose-findorcreate");
 
 const app = express();
@@ -32,7 +33,6 @@ const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday
 const d = new Date();
 const day = weekday[d.getDay()];
 
-var display = "";
 //connect to db
 main().catch(err => console.log(err));
 async function main() {
@@ -57,6 +57,7 @@ async function main() {
         username: String,
         password: String,
         googleId: String,
+        facebookId:String,
         title: [difList]
     });
 
@@ -89,6 +90,29 @@ async function main() {
     passport.deserializeUser(function (user, done) {
         done(null, user);
     });
+
+    passport.use(new FacebookStrategy({
+        clientID: process.env.FACEBOOK_APP_ID,
+        clientSecret: process.env.FACEBOOK_APP_SECRET,
+        callbackURL: "https://fantastic-jade-buffalo.cyclic.cloud/auth/facebook/home"
+      },
+      function(accessToken, refreshToken, profile, cb) {
+        console.log(profile);
+        Login.findOrCreate({ facebookId: profile.id },{username:profile.displayName}, function (err, user) {
+          return cb(err, user);
+        });
+      }
+    ));
+
+    app.get('/auth/facebook',
+  passport.authenticate('facebook'));
+
+  app.get('/auth/facebook/home',
+  passport.authenticate('facebook', { failureRedirect: '/' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/home');
+  });
 
     passport.use(new GoogleStrategy({
         clientID: process.env.CLIENT_ID,
