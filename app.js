@@ -157,8 +157,14 @@ async function main() {
         if (req.isAuthenticated()) {
             let data = await Login.findOne({ username: req.user.username });
             //console.log(data.title[0].titname);
+            
+            //console.log(list);
+            if (data.title.length === 0) {
+                await Login.updateOne({ username: req.user.username }, { title: [item] });
+                await data.save();
+            }
+            data = await Login.findOne({ username: req.user.username });
             let list = data.title.filter(element => element.titname===renderListName);
-            console.log(list);
             if (list[0].list.length === 0) {
                 await Login.findOneAndUpdate({ username: req.user.username,"title.titname":renderListName}, { "title.$.list": [item1,item2,item3]});
                 res.redirect("/");
